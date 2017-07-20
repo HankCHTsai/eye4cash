@@ -12,6 +12,22 @@ model folder: [TensorFlow slim framework](https://github.com/tensorflow/models/t
 technique. You can follow [slim README](model/slim/README.md) introduction to build the cash model 
 for {NTD-1, NTD-5, NTD-10, NTD-50, NTD-100, NTD-500, NDT-1000, USD-1c, USD-10c, USD-25c,
 USD-1, USD-20, USD-100} classes via my adding support with cash dataset components.
+```shell
+[Label map]
+NTD-1: 1
+NTD-5: 2
+NTD-10: 3
+NTD-50: 4
+NTD-100: 5
+NTD-500: 6
+NDT-1000: 7
+USD-1c: 8
+USD-10c: 9
+USD-25c: 10
+USD-1: 11
+USD-20: 12
+USD-100: 13
+```
 
 model/trained folder: You can find the latest trained model in this folder. It is fine-tune trained with MobileNet_v1 from
 its [pre-trained model](http://download.tensorflow.org/models/mobilenet_v1_1.0_224_2017_06_14.tar.gz)
