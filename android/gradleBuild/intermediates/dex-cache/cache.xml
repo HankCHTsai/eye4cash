@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Hank\.android\build-cache\6e8b627c0dae2ebc0625a6cbe6a2859db46364c1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="08b7bb0240c9df70b9af7c07496023df477d2640">
+        <dex dex="D:\Work\Deep Learning\TensorFlow\Github\tensorflow\tensorflow\examples\android\gradleBuild\intermediates\pre-dexed\debug\classes_0df581f8c60c909b78d2646643242d18da7b7b71.jar" />
+    </item>
+
+</items>
