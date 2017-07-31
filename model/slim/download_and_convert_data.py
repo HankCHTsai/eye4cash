@@ -40,13 +40,14 @@ from datasets import download_and_convert_cifar10
 from datasets import download_and_convert_flowers
 from datasets import download_and_convert_mnist
 from datasets import convert_cash
+from datasets import convert_quality
 
 FLAGS = tf.app.flags.FLAGS
 
 tf.app.flags.DEFINE_string(
     'dataset_name',
     None,
-    'The name of the dataset to convert, one of "cifar10", "flowers", "mnist", "cash".')
+    'The name of the dataset to convert, one of "cifar10", "flowers", "mnist", "cash", "quality".')
 
 tf.app.flags.DEFINE_string(
     'dataset_dir',
@@ -68,6 +69,8 @@ def main(_):
     download_and_convert_mnist.run(FLAGS.dataset_dir)
   elif FLAGS.dataset_name == 'cash':
     convert_cash.run(FLAGS.dataset_dir)
+  elif FLAGS.dataset_name == 'quality':
+    convert_quality.run(FLAGS.dataset_dir)
   else:
     raise ValueError(
         'dataset_name [%s] was not recognized.' % FLAGS.dataset_name)
