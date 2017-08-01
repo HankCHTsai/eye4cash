@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 
+from tensorflow.python.training import saver as tf_saver
 from datasets import dataset_factory
 from deployment import model_deploy
 from nets import nets_factory
@@ -66,6 +67,10 @@ tf.app.flags.DEFINE_integer(
 tf.app.flags.DEFINE_integer(
     'save_interval_secs', 600,
     'The frequency with which the model is saved, in seconds.')
+
+tf.app.flags.DEFINE_integer(
+    'max_models_to_keep', 5,
+    'The maximum number of the latest models are saved. Default is 5.')
 
 tf.app.flags.DEFINE_integer(
     'task', 0, 'Task id of the replica running the training.')
@@ -581,6 +586,10 @@ def main(_):
     # Merge all summaries together.
     summary_op = tf.summary.merge(list(summaries), name='summary_op')
 
+    # Create saver with specific max number of saved models
+    if FLAGS.max_models_to_keep <= 0:
+      FLAGS.max_models_to_keep = 5
+    saver = tf_saver.Saver(max_to_keep=FLAGS.max_models_to_keep)
 
     ###########################
     # Kicks off the training. #
@@ -595,6 +604,7 @@ def main(_):
         number_of_steps=FLAGS.max_number_of_steps,
         log_every_n_steps=FLAGS.log_every_n_steps,
         save_summaries_secs=FLAGS.save_summaries_secs,
+        saver=saver,
         save_interval_secs=FLAGS.save_interval_secs,
         sync_optimizer=optimizer if FLAGS.sync_replicas else None)
 
