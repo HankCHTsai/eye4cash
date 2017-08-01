@@ -29,7 +29,7 @@ from preprocessing import preprocessing_factory
 
 slim = tf.contrib.slim
 
-model_name_to_variables = {'inception_v3':'InceptionV3','inception_v4':'InceptionV4','resnet_v1_50':'resnet_v1_50','resnet_v1_152':'resnet_v1_152'}
+model_name_to_variables = {'inception_v3':'InceptionV3','inception_v4':'InceptionV4','resnet_v1_50':'resnet_v1_50','resnet_v1_152':'resnet_v1_152','mobilenet_v1':'MobilenetV1'}
 
 preprocessing_name = FLAGS.preprocessing_name or FLAGS.model_name
 eval_image_size = FLAGS.eval_image_size
@@ -91,7 +91,7 @@ for fl in fls:
 
   try:
     if FLAGS.tfrecord is False:
-      x = tf.gfile.FastGFile(fl).read() # You can also use x = open(fl).read()
+      x = tf.gfile.FastGFile(fl, 'rb').read() # You can also use x = open(fl).read()
       image_name = os.path.basename(fl)
     else:
       example = tf.train.Example()
@@ -107,6 +107,7 @@ for fl in fls:
 
   except Exception as e:
     tf.logging.warn('Cannot process image file %s' % fl)
+    print('Exception: %s' % e)
     continue
 
   probs = probs[0, 0:]

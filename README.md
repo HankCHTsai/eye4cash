@@ -13,7 +13,7 @@ technique. You can follow [slim README](model/slim/README.md) introduction to bu
 for {NTD-1, NTD-5, NTD-10, NTD-50, NTD-100, NTD-500, NDT-1000, USD-1c, USD-10c, USD-25c,
 USD-1, USD-20, USD-100} classes via my adding support with cash dataset components.
 ```shell
-[Label map]
+[Class: label value]
 NTD-1: 1
 NTD-5: 2
 NTD-10: 3
@@ -43,6 +43,16 @@ not to use object detection which requires much effort on labeling.
 Spend too much time to try unfamiliar interface on customizing label in tfrecord and loss function, so the counting and android
 integration are not ready, now.
 
+## Converting your cash images + labels to TFRecord format
+<a id='Eval'></a>
+
+```shell
+$ DATA_DIR=/tmp/CashDataset
+$ python download_and_convert_data.py \
+    --dataset_name=cash \
+    --dataset_dir="${DATA_DIR}"
+```
+
 ## Fine-tune train command
 <a id='Eval'></a>
 
@@ -63,7 +73,7 @@ $ python train_image_classifier.py \
     --trainable_scopes=MobilenetV1/Logits
 ```
 
-# Evaluating performance of a model
+## Evaluating performance of a model
 <a id='Eval'></a>
 
 To evaluate the performance of a model (whether my trained or your own),
@@ -81,5 +91,27 @@ $ python eval_image_classifier.py \
     --dataset_name=cash \
     --dataset_split_name=validation \
     --model_name=mobilenet_v1
+```
+
+## Evaluating performance of a model
+<a id='Eval'></a>
+
+To run inference for some images sample with a model (whether my trained or your own),
+you can use the classify_image.py script, as shown below.
+
+The classify_image.py script is modified from [lixiangchun's mynotebook github](https://github.com/lixiangchun/mynotebook.git). Thanks, Xiangchun Li.
+Its original source path: [mynotebook/machine_learning/classify_image.py](https://github.com/lixiangchun/mynotebook/blob/master/machine_learning/classify_image.py)
+
+Below we give an example of downloading my trained mobilenet-v1 model and
+predict it on your captured cash picture.
+
+```shell
+CHECKPOINT_FILE = ${CHECKPOINT_DIR}/cash_mobilenet_v1.ckpt  # Example
+$ python classify_image.py \
+    --num_classes 13 \
+    --infile test_img_path_list.txt \
+    --model_name mobilenet_v1 \
+    --checkpoint_path ${CHECKPOINT_FILE} \
+    --outfile prediction.txt
 ```
 
